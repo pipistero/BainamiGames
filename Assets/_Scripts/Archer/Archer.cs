@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Archer : MonoBehaviour
 {
@@ -9,7 +7,10 @@ public class Archer : MonoBehaviour
     
     [Header("Animation")]
     [SerializeField] private ArcherAnimationController _animationController;
-    [SerializeField] private ArcherRotationController _rotationController;
+
+    [Header("Arrow launcher")] 
+    [SerializeField] private ArrowLauncher _arrowLauncher;
+    [SerializeField] private Transform _arrowStartPosition;
 
     [Header("Trajectory")] 
     [SerializeField] private TrajectoryDrawer _trajectoryDrawer;
@@ -37,19 +38,21 @@ public class Archer : MonoBehaviour
     private void OnShootContinued(Vector2 velocity)
     {
         DrawTrajectory(velocity);
-        _rotationController.SetRotation(Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg);
+        
+        _animationController.SetRotation(Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg);
     }
 
     private void OnShootFinished(Vector2 velocity)
     {
         _animationController.FinishShootAnimation();
+        _arrowLauncher.Launch(_arrowStartPosition.position, velocity);
         
         _trajectoryDrawer.Clear();
     }
     
     private void DrawTrajectory(Vector2 velocity)
     {
-        _trajectory.CreateTrajectory(transform.position, velocity);
+        _trajectory.CreateTrajectory(_arrowStartPosition.position, velocity);
         _trajectoryDrawer.Draw(_trajectory);
     }
     

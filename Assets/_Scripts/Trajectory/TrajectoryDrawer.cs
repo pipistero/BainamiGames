@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +9,7 @@ public class TrajectoryDrawer : MonoBehaviour
     [Header("Holder")]
     [SerializeField] private Transform _pointsHolder;
 
-    [Header("Settings")] 
+    [Header("Settings")]
     [SerializeField] private Vector3 _startPointScale;
     [SerializeField] private Vector3 _endPointScale;
     

@@ -1,9 +1,8 @@
-using _Scripts.Extensions;
 using UnityEngine;
 
 public class Trajectory
 {
-    private const float TimeStep = 0.05f;
+    private const float TimeStep = 0.07f;
 
     public int PointsCount { get; } 
     public Vector3[] TrajectoryPoints { get; private set; }
@@ -19,7 +18,7 @@ public class Trajectory
             
         for (int i = 0; i < PointsCount; i++)
         {
-            float deltaTime = TimeStep * i;
+            float deltaTime = TimeStep * (i + 1);
 
             TrajectoryPoints[i] = CalculateTrajectoryPoint(startPosition, velocity, deltaTime);
         }
